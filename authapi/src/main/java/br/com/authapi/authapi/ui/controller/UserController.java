@@ -1,5 +1,7 @@
 package br.com.authapi.authapi.ui.controller;
 
+import br.com.authapi.authapi.ui.model.request.UserDetailsRequestModel;
+import br.com.authapi.authapi.ui.model.response.UserRest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,8 +14,8 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(){
-        return "User was created";
+    public UserRest createUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel){
+        return null;
     }
 
     @PutMapping
