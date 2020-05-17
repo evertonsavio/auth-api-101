@@ -1,7 +1,9 @@
 package br.com.authapi.authapi.ui.controller;
 
+import br.com.authapi.authapi.shared.dto.UserDto;
 import br.com.authapi.authapi.ui.model.request.UserDetailsRequestModel;
 import br.com.authapi.authapi.ui.model.response.UserRest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +17,20 @@ public class UserController {
 
     @PostMapping
     public UserRest createUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel){
-        return null;
+
+        //Instancia um objeto usuario de retorno
+        UserRest returnValue = new UserRest();
+        //Instancia um usuario Data Transfer Object
+        UserDto userDto = new UserDto();
+        //Popula o target userDto com a informacao enviada por JSON pelo usuario.
+        BeanUtils.copyProperties(userDetailsRequestModel, userDto);
+        //Usa uma Service com um metodo createUser para criar um usuario na DataBase.
+        //Na camada de data uma entidade lida com a transacao com a DB.
+        UserDto createdUser = userService.createUser(userDto);
+        //Popula o valor de retorno com o usuario criado da DATABASE
+        BeanUtils.copyProperties(createdUser, returnValue);
+
+        return returnValue;
     }
 
     @PutMapping
