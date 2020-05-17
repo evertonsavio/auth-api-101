@@ -1,9 +1,11 @@
 package br.com.authapi.authapi.ui.controller;
 
+import br.com.authapi.authapi.service.UserService;
 import br.com.authapi.authapi.shared.dto.UserDto;
 import br.com.authapi.authapi.ui.model.request.UserDetailsRequestModel;
 import br.com.authapi.authapi.ui.model.response.UserRest;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +19,9 @@ public class UserController {
 
     @PostMapping
     public UserRest createUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel){
+        // Wire UserService to UserControler
+        @Autowired
+        UserService userService;
 
         //Instancia um objeto usuario de retorno
         UserRest returnValue = new UserRest();
