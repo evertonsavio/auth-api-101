@@ -3,6 +3,7 @@ package br.com.authapi.authapi.service.impl;
 import br.com.authapi.authapi.UserRepository;
 import br.com.authapi.authapi.io.entity.UserEntity;
 import br.com.authapi.authapi.service.UserService;
+import br.com.authapi.authapi.shared.Utils;
 import br.com.authapi.authapi.shared.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Utils utils;
+
     @Override
     public UserDto createUser(UserDto user) {
+
+        //if(userRepository.findByEmail(user.getEmail()) != null) throw new RuntimeException("Record already Exists");
 
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
+        String publicUserId = utils.generateUserId(30);
+        userEntity.setUserId(publicUserId);
         userEntity.setEncryptedPassword("Test");
-        userEntity.setUserId("testUserId");
 
         UserEntity storedUserDetails = userRepository.save(userEntity);
 
