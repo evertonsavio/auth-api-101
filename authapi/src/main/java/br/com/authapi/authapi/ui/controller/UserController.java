@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("users") //http:/localhost:/8080/
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
     public String getUser(){
         return "Get User was called";
@@ -20,8 +23,6 @@ public class UserController {
     @PostMapping
     public UserRest createUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel){
         // Wire UserService to UserControler
-        @Autowired
-        UserService userService;
 
         //Instancia um objeto usuario de retorno
         UserRest returnValue = new UserRest();

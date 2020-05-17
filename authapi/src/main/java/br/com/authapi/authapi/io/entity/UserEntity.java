@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+//ESSA e A entidade que sera usada para PERSISTIR na DATABASE pela UserRepository
+
 @Entity(name = "users")
 public class UserEntity implements Serializable {
 
@@ -28,8 +30,8 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
     private String emailVerificationToken;
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean emailVerificationStatus;
+    @Column(nullable = false)
+    private Boolean emailVerificationStatus = false;
 
     public long getId() {
         return id;
